@@ -28,6 +28,10 @@ def index():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+
+    # Forget any user id
+    session.clear()
+
     # User reached via POST (submitted the login form)
     if request.method == "POST":
         # Ensure username was submitted
@@ -45,12 +49,12 @@ def login():
 def register():
     # If user reached via POST, registration submitted
     if request.method == "POST":
-        # Check if username is already taken
         con = sqlite3.connect("database.db")
         name = request.form.get("username")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
         cur = con.cursor()
+        # Check if username is already taken
         res = cur.execute("SELECT id FROM users WHERE username = ?", (name,))
         if len(res.fetchall()) > 0:
             return "Username is taken"
