@@ -24,7 +24,11 @@ def after_request(response):
 @app.route("/")
 @login_required
 def index():
-    return 'Hello World!'
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    res = cur.execute("SELECT username FROM users WHERE id = ?", (session["user_id"],))
+    row = res.fetchone()
+    return render_template("index.html", name=row[0])
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -35,15 +39,34 @@ def login():
     # User reached via POST (submitted the login form)
     if request.method == "POST":
         # Ensure username was submitted
-        if not request.form.get("username"):
+        name = request.form.get("username")
+        password = request.form.get("password")
+        if not name:
             return "must provide username"
-        elif not request.form.get("password"):
+        elif not password:
             return "must provide password"
         # Query database for username and hash of password
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        res = cur.execute("SELECT id, username, hash FROM users WHERE username = ?", (name,))
+        row = res.fetchone();
+        if row == None or not check_password_hash(row[2], password) :
+            return "Invalid username or password"
         # If there is a match, log user in
+        session["user_id"] = row[0]
+        con.close()
         # return redirect("/")
+        return redirect("/")
     # User reached route via GET
     return render_template("login.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+    # Log user out
+    session.clear()
+    # Redirect to home page
+    return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
