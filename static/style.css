@@ -1,5 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&family=Roboto:wght@400;700&display=swap');
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' -25,
+  'opsz' 48
+}
+/* Dropdown Button */
+.icon {
+    color:white;
+    cursor: pointer;
+    padding: 0 2rem 1rem;
+}
+
+/* Dropdown button on hover & focus */
+.icon:hover, .icon:focus {
+    color:#ebeef6;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #505152;
+    min-width: 100px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    position: relative;
+    text-decoration: none;
+    color: #ebeef6;
+    display: block;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: rgb(218, 217, 217);
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
 body {
     font-family: 'Quicksand', 'Roboto', sans-serif;
     margin: 0;
@@ -12,6 +66,8 @@ body {
 .header {
     width: 100%;
     text-align: right;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #474849;
 }
 
 .header a {
@@ -31,12 +87,20 @@ body {
 
 .main {
     text-align: center;
+    padding: 3rem;
+    margin: 3rem;
+    color: #ebeef6;
 }
 
 input {
-    background-color: #37383d;
-    color:#ebeef6;
+    background-color: #abacb3;
+    color:#080c15;
     margin: 0.3rem;
+}
+
+::placeholder {
+    color:#081127;
+    opacity:1;
 }
 
 .footer {
@@ -46,5 +110,32 @@ input {
     text-align: center;
     color: #202124;
 }
+
+.textbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit {
+    background: none;
+    border: none;
+}
+
+.add {
+    color:white;
+    cursor: pointer;
+    margin:0;
+    padding: 0;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.2rem;
+}
+
+
 
 
