@@ -164,6 +164,24 @@ ul button {
     align-items: center;
 }
 
+.home {
+    color:white;
+}
+
+.checklist {
+    color:white;
+}
+
+table {
+    width:100%;
+    border: 1px solid white;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+  }
+
 
 
 

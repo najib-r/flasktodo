@@ -126,15 +126,40 @@ def register():
     return render_template("register.html")
 
 @app.route("/delete", methods=["POST"])
+@login_required
 def delete():
     # Select item with id 
     id = request.form.get("id")
     if id :
         con = sqlite3.connect("database.db")
         cur = con.cursor()
+        res = cur.execute("SELECT username, item FROM items WHERE id = ?", (id,))
+        row = res.fetchone()
+        # Get date and time
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        cur.execute("INSERT INTO history (username, item, time) VALUES (?,?,?)", (row[0], row[1], dt_string))
+        con.commit()
         cur.execute("DELETE FROM items WHERE id = ?", (id,))
         con.commit()
         con.close()
     return redirect("/")
+
+@app.route("/history")
+@login_required
+def history():
+    con = sqlite3.connect("database.db")
+    cur = con.cursor()
+    # get name of current user
+    res = cur.execute("SELECT username from USERS WHERE id = ?", (session["user_id"],))
+    name = res.fetchone()
+    # Get all items for current user to display
+    res = cur.execute("SELECT item, time FROM history WHERE username = ? ORDER BY time DESC", (name[0],))
+    rows = res.fetchall()
+    con.close()
+    return render_template("history.html", rows=rows)
+
+
+
 
 
