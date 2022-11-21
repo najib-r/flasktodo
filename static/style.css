@@ -129,11 +129,39 @@ input {
     padding: 0;
 }
 
+.add:hover {
+    color:#bfc2c8;
+}
+
 .items {
     display: flex;
     flex-direction: column;
     text-align: left;
     gap: 0.2rem;
+}
+
+ul {
+    list-style: none;
+}
+
+ul button {
+    display: inline-block;
+}
+
+.done {
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.done:hover {
+    color:#bfc2c8;
+}
+
+.listitems {
+    display: flex;
+    align-items: center;
 }
 
 

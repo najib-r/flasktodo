@@ -125,16 +125,16 @@ def register():
     # User reached via GET, so render register.html
     return render_template("register.html")
 
-# @app.route("/delete", methods=["POST"])
-# def delete():
-#     # Select item with id 
-#     id = request.form.get("id")
-#     if id :
-#         con = sqlite3.connect("database.db")
-#         cur = con.cursor()
-#         cur.execute("DELETE FROM items WHERE id = ?", (id,))
-#         con.commit()
-#         con.close()
-#     return redirect("/")
+@app.route("/delete", methods=["POST"])
+def delete():
+    # Select item with id 
+    id = request.form.get("id")
+    if id :
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        cur.execute("DELETE FROM items WHERE id = ?", (id,))
+        con.commit()
+        con.close()
+    return redirect("/")
 
 

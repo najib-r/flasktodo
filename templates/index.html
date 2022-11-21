@@ -16,10 +16,17 @@
         </div>
     </form>
         <div class="items">
-            <ul>
+        <form action="/delete", method="post">
                 {% for row in rows %}
-                    <li>{{ row[1] }}</li>
+                <div class="listitems" >
+                    <button type="submit" value="{{ row[0] }}" class="submit" name="id">
+                        <span class="material-symbols-outlined done">
+                            done
+                        </span>
+                    </button>
+                    <span>{{ row[1] }}</span>
+                </div>
                 {% endfor %}
-            </ul>
+        </form>
         </div>
 {% endblock %}
