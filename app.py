@@ -4,8 +4,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required
 from datetime import datetime
 import sqlite3
+from os import path
 
-
+ROOT = path.dirname(path.realpath(__file__))
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def index():
             # Get date and time
             now = datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            con = sqlite3.connect("database.db")
+            con = sqlite3.connect(path.join(ROOT, "database.db"))
             cur = con.cursor()
             # get name of current user
             res = cur.execute("SELECT username from USERS WHERE id = ?", (session["user_id"],))
@@ -46,7 +47,7 @@ def index():
             rows = res.fetchall()
             con.close()
             return render_template("index.html", rows=rows)
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect(path.join(ROOT, "database.db"))
     cur = con.cursor()
     # get name of current user
     res = cur.execute("SELECT username from USERS WHERE id = ?", (session["user_id"],))
@@ -73,7 +74,7 @@ def login():
         elif not password:
             return "must provide password"
         # Query database for username and hash of password
-        con = sqlite3.connect("database.db")
+        con = sqlite3.connect(path.join(ROOT, "database.db"))
         cur = con.cursor()
         res = cur.execute("SELECT id, username, hash FROM users WHERE username = ?", (name,))
         row = res.fetchone();
@@ -99,7 +100,7 @@ def logout():
 def register():
     # If user reached via POST, registration submitted
     if request.method == "POST":
-        con = sqlite3.connect("database.db")
+        con = sqlite3.connect(path.join(ROOT, "database.db"))
         name = request.form.get("username")
         password = request.form.get("password")
         confirmation = request.form.get("confirmation")
@@ -128,10 +129,10 @@ def register():
 @app.route("/delete", methods=["POST"])
 @login_required
 def delete():
-    # Select item with id 
+    # Select item with id
     id = request.form.get("id")
     if id :
-        con = sqlite3.connect("database.db")
+        con = sqlite3.connect(path.join(ROOT, "database.db"))
         cur = con.cursor()
         res = cur.execute("SELECT username, item FROM items WHERE id = ?", (id,))
         row = res.fetchone()
@@ -148,7 +149,7 @@ def delete():
 @app.route("/history")
 @login_required
 def history():
-    con = sqlite3.connect("database.db")
+    con = sqlite3.connect(path.join(ROOT, "database.db"))
     cur = con.cursor()
     # get name of current user
     res = cur.execute("SELECT username from USERS WHERE id = ?", (session["user_id"],))
@@ -159,7 +160,8 @@ def history():
     con.close()
     return render_template("history.html", rows=rows)
 
-
+if __name__ == '__main__':
+    app.run()
 
 
 

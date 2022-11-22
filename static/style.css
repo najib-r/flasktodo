@@ -66,6 +66,7 @@ body {
 .header {
     width: 100%;
     text-align: right;
+    padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid #474849;
 }
