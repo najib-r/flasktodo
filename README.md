@@ -1,5 +1,5 @@
 # FLASK To-do App
-### Video Demo:  <URL HERE>
+### Video Demo:  <https://youtu.be/2w2D-wDIu48>
 ### Description:
 A simple Flask to-do list application made with vanilla HTML, CSS and JavaScript on the frontend, Python (Flask) for the backend and sqlite3 for the database. Database is used to be able to store user's information for easy access with different devices.
 #### helpers.py:
